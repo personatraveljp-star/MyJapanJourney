@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 export default function MyJapanJourneyLandingPage() {
-  const [language, setLanguage] = useState('EN');
+  const [language, setLanguage] = useState<keyof typeof translations>('EN');
 
   const translations = {
     EN: {
