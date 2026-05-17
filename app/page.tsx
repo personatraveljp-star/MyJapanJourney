@@ -1,9 +1,20 @@
-"use client";
+'use client';
 
 import { useState } from 'react';
 
+type Language = 'EN' | 'JP' | 'FR' | 'ES' | 'CN' | 'KR';
+
+type Client = {
+  name: string;
+  country: string;
+  plan: string;
+  status: string;
+  payment: string;
+  days: string;
+};
+
 export default function MyJapanJourneyLandingPage() {
-  const [language, setLanguage] = useState<keyof typeof translations>('EN');
+  const [language, setLanguage] = useState<Language>('EN');
 
   const translations = {
     EN: {
@@ -68,11 +79,11 @@ export default function MyJapanJourneyLandingPage() {
     },
   };
 
-  const t = translations[language];
+  const t = translations[language as Language];
   const [loggedIn, setLoggedIn] = useState(false);
   const isAdmin = loggedIn;
 
-  const [selectedClient, setSelectedClient] = useState(null);
+  const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [notes, setNotes] = useState('Focus on countryside ryokan and local food experiences.');
 
   const requests = [
@@ -108,7 +119,7 @@ export default function MyJapanJourneyLandingPage() {
           <div className="flex items-center gap-4">
             <button
               onClick={() => {
-                const langs = ['EN', 'JP', 'FR', 'ES', 'CN', 'KR'];
+                const langs: Language[] = ['EN', 'JP', 'FR', 'ES', 'CN', 'KR'];
                 const currentIndex = langs.indexOf(language);
                 const nextIndex = (currentIndex + 1) % langs.length;
                 setLanguage(langs[nextIndex]);
