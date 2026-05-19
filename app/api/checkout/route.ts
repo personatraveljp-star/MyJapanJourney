@@ -1,9 +1,17 @@
 import Stripe from "stripe";
 import { NextResponse } from "next/server";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
-export async function POST() {
+if (!stripeSecretKey) {
+  throw new Error("STRIPE_SECRET_KEY is missing");
+}
+
+const stripe = new Stripe(stripeSecretKey, {
+  apiVersion: "2026-04-22.dahlia",
+});
+
+export async function POST(req: Request) {
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -23,8 +31,8 @@ export async function POST() {
 
       mode: "payment",
 
-      success_url: "http://localhost:3000/success",
-      cancel_url: "http://localhost:3000/cancel",
+      success_url: `${req.headers.get("origin")}/?paid=true`,
+      cancel_url: `${req.headers.get("origin")}/?canceled=true`,
     });
 
     return NextResponse.json({
