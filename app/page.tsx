@@ -6,7 +6,7 @@ type Language = "EN" | "JP" | "FR" | "ES" | "CN" | "KR";
 
 export default function MyJapanJourneyLandingPage() {
   const [language, setLanguage] = useState<Language>("EN");
-  const [loggedIn, setLoggedIn] = useState(false);
+
   const [paid, setPaid] = useState(false);
 
   const [selectedPlan, setSelectedPlan] = useState("basic");
@@ -53,8 +53,6 @@ export default function MyJapanJourneyLandingPage() {
       standardDesc: "Ideal for 4–8 day journeys",
       premiumDesc: "Best for 9–13 day adventures",
 
-      selectPlan: "Select Plan",
-
       how: "How It Works",
 
       about: "About",
@@ -99,8 +97,6 @@ export default function MyJapanJourneyLandingPage() {
       basicDesc: "3日以内の旅行向け",
       standardDesc: "4〜8日間の旅行向け",
       premiumDesc: "9〜13日間の旅行向け",
-
-      selectPlan: "このプランを選択",
 
       how: "ご利用の流れ",
 
@@ -147,8 +143,6 @@ export default function MyJapanJourneyLandingPage() {
       standardDesc: "Idéal pour les voyages de 4 à 8 jours",
       premiumDesc: "Parfait pour les voyages de 9 à 13 jours",
 
-      selectPlan: "Choisir ce plan",
-
       how: "Comment ça marche",
 
       about: "À propos",
@@ -194,8 +188,6 @@ export default function MyJapanJourneyLandingPage() {
       standardDesc: "Ideal para viajes de 4 a 8 días",
       premiumDesc: "Perfecto para viajes de 9 a 13 días",
 
-      selectPlan: "Seleccionar plan",
-
       how: "Cómo funciona",
 
       about: "Acerca de",
@@ -239,8 +231,6 @@ export default function MyJapanJourneyLandingPage() {
       basicDesc: "适合3天以内旅行",
       standardDesc: "适合4至8天旅行",
       premiumDesc: "适合9至13天旅行",
-
-      selectPlan: "选择此方案",
 
       how: "使用流程",
 
@@ -286,8 +276,6 @@ export default function MyJapanJourneyLandingPage() {
       standardDesc: "4~8일 여행에 적합",
       premiumDesc: "9~13일 여행에 적합",
 
-      selectPlan: "플랜 선택",
-
       how: "이용 방법",
 
       about: "소개",
@@ -318,20 +306,26 @@ export default function MyJapanJourneyLandingPage() {
 
   const t = translations[language];
 
-  const handleCheckout = async () => {
+  const handleCheckout = async (
+    plan: "basic" | "standard" | "premium"
+  ) => {
+
+    const amount =
+      plan === "basic"
+        ? 5000
+        : plan === "standard"
+        ? 7500
+        : 10000;
+
     const response = await fetch("/api/checkout", {
       method: "POST",
+
       headers: {
         "Content-Type": "application/json",
       },
 
       body: JSON.stringify({
-        amount:
-          selectedPlan === "basic"
-            ? 5000
-            : selectedPlan === "standard"
-            ? 7500
-            : 10000,
+        amount,
       }),
     });
 
@@ -420,27 +414,15 @@ export default function MyJapanJourneyLandingPage() {
               $50
             </div>
 
-            <div className="space-y-4">
-
-              <button
-                onClick={() => setSelectedPlan("basic")}
-                className={`w-full py-4 rounded-xl font-semibold transition ${
-                  selectedPlan === "basic"
-                    ? "bg-black text-white"
-                    : "bg-gray-200"
-                }`}
-              >
-                {t.selectPlan}
-              </button>
-
-              <button
-                onClick={handleCheckout}
-                className="w-full bg-black text-white py-4 rounded-xl font-bold hover:opacity-90 transition"
-              >
-                {t.payment}
-              </button>
-
-            </div>
+            <button
+              onClick={() => {
+                setSelectedPlan("basic");
+                handleCheckout("basic");
+              }}
+              className="w-full bg-black text-white py-4 rounded-xl font-bold hover:opacity-90 transition"
+            >
+              {t.payment}
+            </button>
           </div>
 
           {/* STANDARD */}
@@ -457,27 +439,15 @@ export default function MyJapanJourneyLandingPage() {
               $75
             </div>
 
-            <div className="space-y-4">
-
-              <button
-                onClick={() => setSelectedPlan("standard")}
-                className={`w-full py-4 rounded-xl font-semibold transition ${
-                  selectedPlan === "standard"
-                    ? "bg-black text-white"
-                    : "bg-gray-200"
-                }`}
-              >
-                {t.selectPlan}
-              </button>
-
-              <button
-                onClick={handleCheckout}
-                className="w-full bg-black text-white py-4 rounded-xl font-bold hover:opacity-90 transition"
-              >
-                {t.payment}
-              </button>
-
-            </div>
+            <button
+              onClick={() => {
+                setSelectedPlan("standard");
+                handleCheckout("standard");
+              }}
+              className="w-full bg-black text-white py-4 rounded-xl font-bold hover:opacity-90 transition"
+            >
+              {t.payment}
+            </button>
           </div>
 
           {/* PREMIUM */}
@@ -494,27 +464,15 @@ export default function MyJapanJourneyLandingPage() {
               $100
             </div>
 
-            <div className="space-y-4">
-
-              <button
-                onClick={() => setSelectedPlan("premium")}
-                className={`w-full py-4 rounded-xl font-semibold transition ${
-                  selectedPlan === "premium"
-                    ? "bg-black text-white"
-                    : "bg-gray-200"
-                }`}
-              >
-                {t.selectPlan}
-              </button>
-
-              <button
-                onClick={handleCheckout}
-                className="w-full bg-black text-white py-4 rounded-xl font-bold hover:opacity-90 transition"
-              >
-                {t.payment}
-              </button>
-
-            </div>
+            <button
+              onClick={() => {
+                setSelectedPlan("premium");
+                handleCheckout("premium");
+              }}
+              className="w-full bg-black text-white py-4 rounded-xl font-bold hover:opacity-90 transition"
+            >
+              {t.payment}
+            </button>
           </div>
 
         </div>
@@ -535,21 +493,6 @@ export default function MyJapanJourneyLandingPage() {
             </div>
 
             <h3 className="text-2xl font-bold mb-4">
-              Choose Your Plan
-            </h3>
-
-            <p className="text-gray-600 leading-relaxed">
-              Select the travel plan that matches the length of your Japan trip.
-            </p>
-          </div>
-
-          {/* STEP 2 */}
-          <div className="bg-white rounded-3xl p-10 shadow-lg">
-            <div className="text-5xl font-bold mb-6">
-              2
-            </div>
-
-            <h3 className="text-2xl font-bold mb-4">
               Complete Payment
             </h3>
 
@@ -558,10 +501,10 @@ export default function MyJapanJourneyLandingPage() {
             </p>
           </div>
 
-          {/* STEP 3 */}
+          {/* STEP 2 */}
           <div className="bg-white rounded-3xl p-10 shadow-lg">
             <div className="text-5xl font-bold mb-6">
-              3
+              2
             </div>
 
             <h3 className="text-2xl font-bold mb-4">
@@ -573,10 +516,10 @@ export default function MyJapanJourneyLandingPage() {
             </p>
           </div>
 
-          {/* STEP 4 */}
-          <div className="bg-white rounded-3xl p-10 shadow-lg md:col-span-3">
+          {/* STEP 3 */}
+          <div className="bg-white rounded-3xl p-10 shadow-lg">
             <div className="text-5xl font-bold mb-6">
-              4
+              3
             </div>
 
             <h3 className="text-2xl font-bold mb-4">
@@ -590,6 +533,72 @@ export default function MyJapanJourneyLandingPage() {
 
         </div>
       </section>
+
+      {/* ABOUT */}
+      <section className="py-24 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-10">
+            {t.about}
+          </h2>
+
+          <p className="text-xl text-gray-600 leading-relaxed">
+            {t.aboutText}
+          </p>
+        </div>
+      </section>
+
+      {/* QUESTIONNAIRE */}
+      {paid && (
+        <section className="py-24 px-6 bg-neutral-100">
+          <div className="max-w-3xl mx-auto bg-white rounded-3xl p-10 shadow-2xl">
+
+            <h2 className="text-4xl font-bold mb-10 text-center">
+              {t.questionnaire}
+            </h2>
+
+            <div className="space-y-6">
+
+              {Object.entries({
+                name: t.name,
+                email: t.email,
+                country: t.country,
+                dates: t.dates,
+                travelers: t.travelers,
+                budget: t.budget,
+                places: t.places,
+                interests: t.interests,
+                food: t.food,
+                transportation: t.transportation,
+                requests: t.requests,
+                japanVisit: t.japanVisit,
+              }).map(([key, label]) => (
+                <div key={key}>
+                  <label className="block mb-2 font-semibold">
+                    {label}
+                  </label>
+
+                  <input
+                    type="text"
+                    value={(formData as any)[key]}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        [key]: e.target.value,
+                      })
+                    }
+                    className="w-full border rounded-xl p-4"
+                  />
+                </div>
+              ))}
+
+              <button className="w-full bg-black text-white py-4 rounded-xl text-lg font-bold">
+                {t.submit}
+              </button>
+
+            </div>
+          </div>
+        </section>
+      )}
     </main>
   );
 }
