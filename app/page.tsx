@@ -37,6 +37,7 @@ export default function MyJapanJourneyLandingPage() {
   const translations = {
     EN: {
       hero: "Your Personalized Japan Journey",
+
       discover:
         "Custom travel planning designed around your interests, style, and schedule.",
 
@@ -56,12 +57,8 @@ export default function MyJapanJourneyLandingPage() {
 
       how: "How It Works",
 
-      step1: "Choose Your Plan",
-      step2: "Complete Payment",
-      step3: "Fill Out Your Travel Questionnaire",
-      step4: "Receive Your Personalized Journey",
-
       about: "About",
+
       aboutText:
         "We create personalized Japan travel plans tailored to your interests and travel style.",
 
@@ -87,6 +84,7 @@ export default function MyJapanJourneyLandingPage() {
 
     JP: {
       hero: "あなた専用の日本旅行",
+
       discover:
         "あなたの興味や旅行スタイルに合わせた完全パーソナライズ旅行プラン。",
 
@@ -106,12 +104,8 @@ export default function MyJapanJourneyLandingPage() {
 
       how: "ご利用の流れ",
 
-      step1: "プランを選択",
-      step2: "決済を完了",
-      step3: "旅行アンケートを入力",
-      step4: "オリジナル旅程を受け取る",
-
       about: "About",
+
       aboutText:
         "あなたの旅行スタイルに合わせた日本旅行プランを作成します。",
 
@@ -137,6 +131,7 @@ export default function MyJapanJourneyLandingPage() {
 
     FR: {
       hero: "Votre voyage personnalisé au Japon",
+
       discover:
         "Des itinéraires personnalisés adaptés à vos intérêts et votre style de voyage.",
 
@@ -156,12 +151,8 @@ export default function MyJapanJourneyLandingPage() {
 
       how: "Comment ça marche",
 
-      step1: "Choisissez votre plan",
-      step2: "Effectuez le paiement",
-      step3: "Remplissez le questionnaire",
-      step4: "Recevez votre itinéraire",
-
       about: "À propos",
+
       aboutText:
         "Nous créons des plans de voyage personnalisés pour le Japon.",
 
@@ -187,6 +178,7 @@ export default function MyJapanJourneyLandingPage() {
 
     ES: {
       hero: "Tu viaje personalizado por Japón",
+
       discover:
         "Planes de viaje personalizados según tus intereses y estilo.",
 
@@ -206,12 +198,8 @@ export default function MyJapanJourneyLandingPage() {
 
       how: "Cómo funciona",
 
-      step1: "Elige tu plan",
-      step2: "Completa el pago",
-      step3: "Rellena el cuestionario",
-      step4: "Recibe tu itinerario",
-
       about: "Acerca de",
+
       aboutText:
         "Creamos itinerarios personalizados para viajar por Japón.",
 
@@ -237,6 +225,7 @@ export default function MyJapanJourneyLandingPage() {
 
     CN: {
       hero: "您的专属日本之旅",
+
       discover: "根据您的兴趣和旅行风格定制旅行计划。",
 
       gallery: "旅行画廊",
@@ -255,12 +244,8 @@ export default function MyJapanJourneyLandingPage() {
 
       how: "使用流程",
 
-      step1: "选择方案",
-      step2: "完成付款",
-      step3: "填写问卷",
-      step4: "获取您的行程",
-
       about: "关于我们",
+
       aboutText: "我们为您打造个性化日本旅行计划。",
 
       payment: "前往付款",
@@ -285,6 +270,7 @@ export default function MyJapanJourneyLandingPage() {
 
     KR: {
       hero: "당신만의 일본 여행",
+
       discover:
         "당신의 취향과 여행 스타일에 맞춘 맞춤형 일본 여행.",
 
@@ -304,12 +290,8 @@ export default function MyJapanJourneyLandingPage() {
 
       how: "이용 방법",
 
-      step1: "플랜 선택",
-      step2: "결제 완료",
-      step3: "여행 설문 작성",
-      step4: "맞춤 여행 일정 수령",
-
       about: "소개",
+
       aboutText:
         "당신의 여행 스타일에 맞는 일본 여행 플랜을 제작합니다.",
 
@@ -438,16 +420,27 @@ export default function MyJapanJourneyLandingPage() {
               $50
             </div>
 
-            <button
-              onClick={() => setSelectedPlan("basic")}
-              className={`w-full py-4 rounded-xl font-semibold transition ${
-                selectedPlan === "basic"
-                  ? "bg-black text-white"
-                  : "bg-gray-200"
-              }`}
-            >
-              {t.selectPlan}
-            </button>
+            <div className="space-y-4">
+
+              <button
+                onClick={() => setSelectedPlan("basic")}
+                className={`w-full py-4 rounded-xl font-semibold transition ${
+                  selectedPlan === "basic"
+                    ? "bg-black text-white"
+                    : "bg-gray-200"
+                }`}
+              >
+                {t.selectPlan}
+              </button>
+
+              <button
+                onClick={handleCheckout}
+                className="w-full bg-black text-white py-4 rounded-xl font-bold hover:opacity-90 transition"
+              >
+                {t.payment}
+              </button>
+
+            </div>
           </div>
 
           {/* STANDARD */}
@@ -464,16 +457,27 @@ export default function MyJapanJourneyLandingPage() {
               $75
             </div>
 
-            <button
-              onClick={() => setSelectedPlan("standard")}
-              className={`w-full py-4 rounded-xl font-semibold transition ${
-                selectedPlan === "standard"
-                  ? "bg-black text-white"
-                  : "bg-gray-200"
-              }`}
-            >
-              {t.selectPlan}
-            </button>
+            <div className="space-y-4">
+
+              <button
+                onClick={() => setSelectedPlan("standard")}
+                className={`w-full py-4 rounded-xl font-semibold transition ${
+                  selectedPlan === "standard"
+                    ? "bg-black text-white"
+                    : "bg-gray-200"
+                }`}
+              >
+                {t.selectPlan}
+              </button>
+
+              <button
+                onClick={handleCheckout}
+                className="w-full bg-black text-white py-4 rounded-xl font-bold hover:opacity-90 transition"
+              >
+                {t.payment}
+              </button>
+
+            </div>
           </div>
 
           {/* PREMIUM */}
@@ -490,17 +494,29 @@ export default function MyJapanJourneyLandingPage() {
               $100
             </div>
 
-            <button
-              onClick={() => setSelectedPlan("premium")}
-              className={`w-full py-4 rounded-xl font-semibold transition ${
-                selectedPlan === "premium"
-                  ? "bg-black text-white"
-                  : "bg-gray-200"
-              }`}
-            >
-              {t.selectPlan}
-            </button>
+            <div className="space-y-4">
+
+              <button
+                onClick={() => setSelectedPlan("premium")}
+                className={`w-full py-4 rounded-xl font-semibold transition ${
+                  selectedPlan === "premium"
+                    ? "bg-black text-white"
+                    : "bg-gray-200"
+                }`}
+              >
+                {t.selectPlan}
+              </button>
+
+              <button
+                onClick={handleCheckout}
+                className="w-full bg-black text-white py-4 rounded-xl font-bold hover:opacity-90 transition"
+              >
+                {t.payment}
+              </button>
+
+            </div>
           </div>
+
         </div>
       </section>
 
@@ -510,122 +526,70 @@ export default function MyJapanJourneyLandingPage() {
           {t.how}
         </h2>
 
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-          <div className="bg-white p-8 rounded-3xl shadow-lg">
-            {t.step1}
+        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
+
+          {/* STEP 1 */}
+          <div className="bg-white rounded-3xl p-10 shadow-lg">
+            <div className="text-5xl font-bold mb-6">
+              1
+            </div>
+
+            <h3 className="text-2xl font-bold mb-4">
+              Choose Your Plan
+            </h3>
+
+            <p className="text-gray-600 leading-relaxed">
+              Select the travel plan that matches the length of your Japan trip.
+            </p>
           </div>
 
-          <div className="bg-white p-8 rounded-3xl shadow-lg">
-            {t.step2}
+          {/* STEP 2 */}
+          <div className="bg-white rounded-3xl p-10 shadow-lg">
+            <div className="text-5xl font-bold mb-6">
+              2
+            </div>
+
+            <h3 className="text-2xl font-bold mb-4">
+              Complete Payment
+            </h3>
+
+            <p className="text-gray-600 leading-relaxed">
+              Securely pay online using Stripe checkout.
+            </p>
           </div>
 
-          <div className="bg-white p-8 rounded-3xl shadow-lg">
-            {t.step3}
+          {/* STEP 3 */}
+          <div className="bg-white rounded-3xl p-10 shadow-lg">
+            <div className="text-5xl font-bold mb-6">
+              3
+            </div>
+
+            <h3 className="text-2xl font-bold mb-4">
+              Fill Out Your Questionnaire
+            </h3>
+
+            <p className="text-gray-600 leading-relaxed">
+              Tell us your travel style, interests, schedule, and preferences.
+            </p>
           </div>
 
-          <div className="bg-white p-8 rounded-3xl shadow-lg">
-            {t.step4}
+          {/* STEP 4 */}
+          <div className="bg-white rounded-3xl p-10 shadow-lg md:col-span-3">
+            <div className="text-5xl font-bold mb-6">
+              4
+            </div>
+
+            <h3 className="text-2xl font-bold mb-4">
+              Receive Your Personalized Japan Journey
+            </h3>
+
+            <p className="text-gray-600 leading-relaxed">
+              We create a fully personalized Japan itinerary tailored to your travel goals.
+            </p>
           </div>
+
         </div>
       </section>
-
-      {/* ABOUT */}
-      <section className="py-24 px-6">
-        <h2 className="text-4xl font-bold text-center mb-10">
-          {t.about}
-        </h2>
-
-        <p className="max-w-3xl mx-auto text-center text-xl text-gray-600">
-          {t.aboutText}
-        </p>
-      </section>
-
-      {/* PAYMENT */}
-      <section className="py-24 px-6 text-center bg-black text-white">
-        <button
-          onClick={handleCheckout}
-          className="bg-white text-black px-12 py-5 rounded-2xl text-xl font-bold hover:scale-105 transition"
-        >
-          {t.payment}
-        </button>
-      </section>
-
-      {/* QUESTIONNAIRE */}
-      {paid && (
-        <section className="py-24 px-6 bg-neutral-100">
-          <h2 className="text-4xl font-bold text-center mb-16">
-            {t.questionnaire}
-          </h2>
-
-          <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl p-10 space-y-6">
-
-            <input
-              placeholder={t.name}
-              className="w-full border p-4 rounded-xl"
-            />
-
-            <input
-              placeholder={t.email}
-              className="w-full border p-4 rounded-xl"
-            />
-
-            <input
-              placeholder={t.country}
-              className="w-full border p-4 rounded-xl"
-            />
-
-            <input
-              placeholder={t.dates}
-              className="w-full border p-4 rounded-xl"
-            />
-
-            <input
-              placeholder={t.travelers}
-              className="w-full border p-4 rounded-xl"
-            />
-
-            <input
-              placeholder={t.budget}
-              className="w-full border p-4 rounded-xl"
-            />
-
-            <textarea
-              placeholder={t.places}
-              className="w-full border p-4 rounded-xl"
-            />
-
-            <textarea
-              placeholder={t.interests}
-              className="w-full border p-4 rounded-xl"
-            />
-
-            <textarea
-              placeholder={t.food}
-              className="w-full border p-4 rounded-xl"
-            />
-
-            <textarea
-              placeholder={t.transportation}
-              className="w-full border p-4 rounded-xl"
-            />
-
-            <textarea
-              placeholder={t.requests}
-              className="w-full border p-4 rounded-xl"
-            />
-
-            <input
-              placeholder={t.japanVisit}
-              className="w-full border p-4 rounded-xl"
-            />
-
-            <button className="w-full bg-black text-white py-5 rounded-2xl text-xl font-bold">
-              {t.submit}
-            </button>
-
-          </div>
-        </section>
-      )}
     </main>
   );
 }
