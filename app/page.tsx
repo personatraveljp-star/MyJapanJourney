@@ -591,9 +591,49 @@ export default function MyJapanJourneyLandingPage() {
                 </div>
               ))}
 
-              <button className="w-full bg-black text-white py-4 rounded-xl text-lg font-bold">
-                {t.submit}
-              </button>
+              <button
+  onClick={async () => {
+
+    try {
+
+      const response = await fetch(
+        "/api/submit-form",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            ...formData,
+            plan: selectedPlan,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+
+        alert("Questionnaire submitted!");
+
+      } else {
+
+        alert("Submission failed.");
+      }
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert("Something went wrong.");
+    }
+  }}
+  className="w-full bg-black text-white py-4 rounded-xl text-lg font-bold"
+>
+  {t.submit}
+</button>
 
             </div>
           </div>
