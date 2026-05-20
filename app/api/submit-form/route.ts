@@ -4,18 +4,33 @@ import { createClient } from "@supabase/supabase-js";
 
 import { Resend } from "resend";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
-
-const resend = new Resend(
-  process.env.RESEND_API_KEY
-);
-
 export async function POST(req: Request) {
 
   try {
+
+    const supabaseUrl =
+      process.env.NEXT_PUBLIC_SUPABASE_URL;
+
+    const supabaseKey =
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+    const resendKey =
+      process.env.RESEND_API_KEY;
+
+    if (!supabaseUrl || !supabaseKey) {
+
+      return NextResponse.json(
+        { error: "Missing Supabase ENV" },
+        { status: 500 }
+      );
+    }
+
+    const supabase = createClient(
+      supabaseUrl,
+      supabaseKey
+    );
+
+    const resend = new Resend(resendKey);
 
     const body = await req.json();
 
