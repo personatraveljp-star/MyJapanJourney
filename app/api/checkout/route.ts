@@ -1,44 +1,77 @@
 import Stripe from "stripe";
+
 import { NextResponse } from "next/server";
 
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripeSecretKey =
+  process.env.STRIPE_SECRET_KEY;
 
 if (!stripeSecretKey) {
-  throw new Error("STRIPE_SECRET_KEY is missing");
+  throw new Error(
+    "Missing STRIPE_SECRET_KEY"
+  );
 }
 
-const stripe = new Stripe(stripeSecretKey, {
-  apiVersion: "2026-04-22.dahlia",
-});
+const stripe = new Stripe(
+  stripeSecretKey
+);
 
 export async function POST(req: Request) {
+
   try {
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
 
-      line_items: [
-        {
-          price_data: {
-            currency: "usd",
-            product_data: {
-              name: "My Japan Journey Travel Plan",
+    const body = await req.json();
+
+    const { plan } = body;
+
+    let amount = 5000;
+    let planName = "Basic Plan";
+
+    if (plan === "Standard") {
+      amount = 7500;
+      planName = "Standard Plan";
+    }
+
+    if (plan === "Premium") {
+      amount = 10000;
+      planName = "Premium Plan";
+    }
+
+    const session =
+      await stripe.checkout.sessions.create({
+
+        payment_method_types: ["card"],
+
+        line_items: [
+          {
+            price_data: {
+              currency: "usd",
+
+              product_data: {
+                name: planName,
+              },
+
+              unit_amount: amount,
             },
-            unit_amount: 5000,
+
+            quantity: 1,
           },
-          quantity: 1,
-        },
-      ],
+        ],
 
-      mode: "payment",
+        mode: "payment",
 
-      success_url: `${req.headers.get("origin")}/?paid=true`,
-      cancel_url: `${req.headers.get("origin")}/?canceled=true`,
-    });
+        success_url:
+          "http://localhost:3000/success",
+
+        cancel_url:
+          "http://localhost:3000/cancel",
+      });
 
     return NextResponse.json({
       url: session.url,
     });
+
   } catch (error) {
+
     console.log(error);
 
     return NextResponse.json(

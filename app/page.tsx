@@ -317,17 +317,20 @@ export default function MyJapanJourneyLandingPage() {
         ? 7500
         : 10000;
 
-    const response = await fetch("/api/checkout", {
-      method: "POST",
+    const response = await fetch(
+  "/api/checkout",
+  {
+    method: "POST",
 
-      headers: {
-        "Content-Type": "application/json",
-      },
+    headers: {
+      "Content-Type": "application/json",
+    },
 
-      body: JSON.stringify({
-        amount,
-      }),
-    });
+    body: JSON.stringify({
+      plan: selectedPlan,
+    }),
+  }
+);
 
     const data = await response.json();
 
